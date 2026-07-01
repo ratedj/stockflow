@@ -11,9 +11,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,9 +32,21 @@ public class productsController {
     @ApiResponse(
             responseCode = "200",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProductResponse.class)))
-public ResponseEntity<List<ProductResponse>> GetAll() {
+public ResponseEntity<List<ProductResponse>> getAll() {
 
     return ResponseEntity.ok(productServiceImp.GetAll());
+    }
+
+    @GetMapping("/{id}")
+    @Operation(
+            operationId = "Obtene información de un producto",
+            description = "Permite obtener información de un producto",
+            summary = "Se devuelve la información del producto almacenado en la base de datos.")
+    @ApiResponse(
+            responseCode = "200",
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProductResponse.class)))
+    public ResponseEntity<ProductResponse> getById(@PathVariable int id) {
+        return  ResponseEntity.ok(productServiceImp.GetById(id));
     }
 
 }

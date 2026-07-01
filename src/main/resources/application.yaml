@@ -1,3 +1,44 @@
 spring:
   application:
     name: inventory-service
+  datasource:
+    url: jdbc:h2:mem:inventorydb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+    hikari:
+      # 10 conexiones cubren picos de carga media sin saturar el motor de base de datos.
+      maximum-pool-size: 10
+
+      # Se mantienen 5 conexiones para evitar el costo de
+      # abrir/cerrar conexiones constantemente en tráfico intermitente de
+      # un servicio interno (no 24/7 con carga constante).
+      minimum-idle: 5
+
+      # 30s es un valor conservador que evita que peticiones
+      # se cuelguen indefinidamente si el pool está agotado, dando margen suficiente
+      # en picos breves de carga media sin fallar prematuramente.
+      connection-timeout: 30000
+
+      # 10 minutos evita mantener
+      # conexiones abiertas innecesariamente en horas de baja demanda, liberando
+      # recursos del motor de base de datos sin sacrificar respuesta rápida en
+      # el siguiente pico de tráfico.
+      idle-timeout: 600000
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always

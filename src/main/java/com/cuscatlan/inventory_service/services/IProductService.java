@@ -8,4 +8,6 @@ public interface IProductService {
 
     public List<ProductResponse> GetAll();
 
+    public ProductResponse GetById(int id);
+
 }

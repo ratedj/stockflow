@@ -10,9 +10,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductsRepository {
 
-    private final ProductsRepository productsRepository;
+    private final ProductsJPARepository productsJPARepository;
 
     public List<Product> findAll() {
-        return productsRepository.findAll();
+        return productsJPARepository.findAll();
+    }
+
+    public Product findById(int id) {
+        return productsJPARepository.findById(id).get();
     }
 }

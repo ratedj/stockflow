@@ -33,4 +33,14 @@ public class ProductServiceImp implements   IProductService {
             return productResponseList2;
 
     }
+
+    @Override
+    public ProductResponse GetById(int id) {
+
+        Product product = productsRepository.findById(id);
+
+        ProductResponse productResponse = productMapper.toDto(product);
+
+        return productResponse;
+    }
 }
