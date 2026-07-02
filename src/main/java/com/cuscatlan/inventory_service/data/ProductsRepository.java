@@ -1,5 +1,6 @@
 package com.cuscatlan.inventory_service.data;
 
+import com.cuscatlan.inventory_service.models.Movement;
 import com.cuscatlan.inventory_service.models.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -18,5 +19,13 @@ public class ProductsRepository {
 
     public Product findById(int id) {
         return productsJPARepository.findById(id).get();
+    }
+
+    public Product save(Product product) {
+        return productsJPARepository.save(product);
+    }
+
+    public List<Product> findLowStockProducts() {
+        return productsJPARepository.findProductsWithLowStock();
     }
 }

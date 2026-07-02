@@ -42,3 +42,16 @@ spring:
   sql:
     init:
       mode: always
+  management:
+    endpoints:
+      web:
+        exposure:
+          include: health,info
+    endpoint:
+      health:
+        show-details: always
+    info:
+      app:
+        name: Inventory Service
+        description: Servicio de gestión de inventario, movimientos de stock y alertas para el Banco Cuscatlán
+        version: 0.0.1-SNAPSHOT
